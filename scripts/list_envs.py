@@ -61,7 +61,7 @@ def main():
     index = 0
     # acquire all Isaac environments names
     for task_spec in gym.registry.values():
-        if "LeggedManip" not in task_spec.entry_point:
+        if "LeggedManip_Lab" not in str(task_spec.kwargs.get("env_cfg_entry_point", "")):
             continue
         if args_cli.keyword is None or args_cli.keyword.lower() in task_spec.id.lower():
             # add details to table

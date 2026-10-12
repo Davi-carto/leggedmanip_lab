@@ -41,7 +41,11 @@ if TYPE_CHECKING:
 
 
 def position_command_b_error_exp(
-    env: ManagerBasedRLEnv, command_name: str, std: float, asset_cfg: SceneEntityCfg
+    env: ManagerBasedRLEnv,
+    command_name: str,
+    std: float,
+    asset_cfg: SceneEntityCfg,
+    link0_name: str = "link0",
 ) -> torch.Tensor:
     """Reward end-effector position tracking in the robot's body frame (link0 frame)
     using an exponential kernel.
@@ -51,7 +55,7 @@ def position_command_b_error_exp(
     """
     asset: RigidObject = env.scene[asset_cfg.name]
     command = env.command_manager.get_command(command_name)
-    root_idx = asset.find_bodies("link0")[0][0]
+    root_idx = asset.find_bodies(link0_name)[0][0]
     end_effector_curr_pos_b = (
         asset.data.body_pos_w[:, asset_cfg.body_ids[0]]
         - asset.data.body_pos_w[:, root_idx]
@@ -99,13 +103,20 @@ def position_command_error_exp(
 
 
 def orientation_command_error(
-    env: ManagerBasedRLEnv, command_name: str, asset_cfg: SceneEntityCfg
+    env: ManagerBasedRLEnv,
+    command_name: str,
+    asset_cfg: SceneEntityCfg,
+    reference_body_name: str | None = None,
 ) -> torch.Tensor:
     """Penalize end-effector orientation error using the shortest-path quaternion distance."""
     asset: RigidObject = env.scene[asset_cfg.name]
     command = env.command_manager.get_command(command_name)
     des_quat_b = command[:, 3:7]
-    des_quat_w = quat_mul(asset.data.root_quat_w, des_quat_b)
+    reference_quat_w = asset.data.root_quat_w
+    if reference_body_name is not None:
+        reference_idx = asset.find_bodies(reference_body_name)[0][0]
+        reference_quat_w = asset.data.body_quat_w[:, reference_idx]
+    des_quat_w = quat_mul(reference_quat_w, des_quat_b)
     curr_quat_w = asset.data.body_quat_w[:, asset_cfg.body_ids[0]]
     return quat_error_magnitude(curr_quat_w, des_quat_w)
 

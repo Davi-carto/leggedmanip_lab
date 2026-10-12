@@ -55,35 +55,35 @@
 
 
     <!-- go2 -->
-    <mesh file="assets/base_0.stl" />
-    <mesh file="assets/base_1.stl" />
-    <mesh file="assets/base_2.stl" />
-    <mesh file="assets/base_3.stl" />
-    <mesh file="assets/base_4.stl" />
-    <mesh file="assets/hip_0.stl" />
-    <mesh file="assets/hip_1.stl" />
-    <mesh file="assets/thigh_0.stl" />
-    <mesh file="assets/thigh_1.stl" />
-    <mesh file="assets/thigh_mirror_0.stl" />
-    <mesh file="assets/thigh_mirror_1.stl" />
-    <mesh file="assets/calf_0.stl" />
-    <mesh file="assets/calf_1.stl" />
-    <mesh file="assets/calf_mirror_0.stl" />
-    <mesh file="assets/calf_mirror_1.stl" />
-    <mesh file="assets/foot.stl" />
+    <mesh file="base_0.stl" />
+    <mesh file="base_1.stl" />
+    <mesh file="base_2.stl" />
+    <mesh file="base_3.stl" />
+    <mesh file="base_4.stl" />
+    <mesh file="hip_0.stl" />
+    <mesh file="hip_1.stl" />
+    <mesh file="thigh_0.stl" />
+    <mesh file="thigh_1.stl" />
+    <mesh file="thigh_mirror_0.stl" />
+    <mesh file="thigh_mirror_1.stl" />
+    <mesh file="calf_0.stl" />
+    <mesh file="calf_1.stl" />
+    <mesh file="calf_mirror_0.stl" />
+    <mesh file="calf_mirror_1.stl" />
+    <mesh file="foot.stl" />
 
     <!-- piper -->
   
-    <mesh name="arm_base_link" file="assets/base_link.STL" />
-    <mesh name="link1" file="assets/link1.STL" />
-    <mesh name="link2" file="assets/link2.STL" />
-    <mesh name="link3" file="assets/link3.STL" />
-    <mesh name="link4" file="assets/link4.STL" />
-    <mesh name="link5" file="assets/link5.STL" />
-    <mesh name="link6" file="assets/link6.STL" />
-    <mesh name="gripper_base" file="assets/gripper_base.STL" />
-    <mesh name="link7" file="assets/link7.STL" />
-    <mesh name="link8" file="assets/link8.STL" />
+    <mesh name="arm_base_link" file="base_link.STL" />
+    <mesh name="link1" file="link1.STL" />
+    <mesh name="link2" file="link2.STL" />
+    <mesh name="link3" file="link3.STL" />
+    <mesh name="link4" file="link4.STL" />
+    <mesh name="link5" file="link5.STL" />
+    <mesh name="link6" file="link6.STL" />
+    <mesh name="gripper_base" file="gripper_base.STL" />
+    <mesh name="link7" file="link7.STL" />
+    <mesh name="link8" file="link8.STL" />
 
   </asset>
 

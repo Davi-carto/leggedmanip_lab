@@ -32,6 +32,7 @@ parser.add_argument(
     "--disable_fabric", action="store_true", default=False, help="Disable fabric and use USD I/O operations."
 )
 parser.add_argument("--num_envs", type=int, default=None, help="Number of environments to simulate.")
+parser.add_argument("--max_steps", type=int, default=None, help="Stop playback after this many simulation steps.")
 parser.add_argument("--task", type=str, default=None, help="Name of the task.")
 parser.add_argument(
     "--agent", type=str, default="rsl_rl_cfg_entry_point", help="Name of the RL agent configuration entry point."
@@ -92,7 +93,6 @@ from isaaclab_rl.rsl_rl import (
     RslRlVecEnvWrapper,
     export_policy_as_jit,
     export_policy_as_onnx,
-    handle_deprecated_rsl_rl_cfg,
 )
 from isaaclab_rl.utils.pretrained_checkpoint import get_published_pretrained_checkpoint
 
@@ -115,7 +115,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     env_cfg.scene.num_envs = args_cli.num_envs if args_cli.num_envs is not None else env_cfg.scene.num_envs
 
     # handle deprecated configurations
-    agent_cfg = handle_deprecated_rsl_rl_cfg(agent_cfg, installed_version)
+    agent_cfg = cli_args.prepare_agent_cfg(agent_cfg, installed_version)
 
     # set the environment seed
     # note: certain randomizations occur in the environment initialization so we set the seed here
@@ -222,8 +222,10 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
                 policy.reset(dones)
             else:
                 policy_nn.reset(dones)
+        timestep += 1
+        if args_cli.max_steps is not None and timestep >= args_cli.max_steps:
+            break
         if args_cli.video:
-            timestep += 1
             # Exit the play loop after recording one video
             if timestep == args_cli.video_length:
                 break

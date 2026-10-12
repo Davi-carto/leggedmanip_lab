@@ -100,3 +100,20 @@ def update_rsl_rl_cfg(agent_cfg: RslRlBaseRunnerCfg, args_cli: argparse.Namespac
         agent_cfg.neptune_project = args_cli.log_project_name
 
     return agent_cfg
+
+
+def prepare_agent_cfg(agent_cfg: RslRlBaseRunnerCfg, installed_version: str):
+    """Support native RSL-RL 5 model configs with Isaac Lab 2.3's wrapper."""
+    from packaging.version import Version
+
+    import isaaclab_rl.rsl_rl as rsl_rl_adapter
+
+    if (
+        Version(installed_version) >= Version("5.0.0")
+        and isinstance(getattr(agent_cfg, "actor", None), dict)
+        and isinstance(getattr(agent_cfg, "critic", None), dict)
+    ):
+        return agent_cfg
+    if hasattr(rsl_rl_adapter, "handle_deprecated_rsl_rl_cfg"):
+        return rsl_rl_adapter.handle_deprecated_rsl_rl_cfg(agent_cfg, installed_version)
+    raise RuntimeError("This Isaac Lab/RSL-RL combination requires a native actor/critic config (e.g. M20-PIPER-Flat).")

@@ -40,6 +40,7 @@
 | GO1-WX250S | Unitree Go1 | WX250S | <img src="./docs/imgs/go1_wx250s.png" alt="go1_wx250s" width="75"> |
 | GO2-ARX5 | Unitree Go2 | ARX-X5 | <img src="./docs/imgs/go2_arx5.png" alt="go2_arx5" width="75"> |
 | GO2-PIPER | Unitree Go2 | Agilex Piper | <img src="./docs/imgs/go2_piper.png" alt="go2_piper" width="75"> |
+| M20-PIPER | DeepRobotics M20（轮足） | Agilex Piper | [训练与参数说明](docs/M20_PIPER_CN.md) |
 | ... | ... | ... | ... |
 每个平台支持以下 **2** 种训练模式：
 
@@ -62,6 +63,8 @@
 ## 安装
 
 ### 先决条件
+
+M20-Piper 可复用已有 `rl-training`（Isaac Lab 2.3.2 + RSL-RL 5.0.1），无需按下文重装；参见 [M20-Piper 专用指南](docs/M20_PIPER_CN.md)。
 
 * 请根据 [Isaac Lab 官方安装指南](https://isaac-sim.github.io/IsaacLab/main/source/setup/installation/index.html) 安装 Isaac Lab。
   推荐使用 conda 安装方式，因为它可以更方便地在终端中调用 Python 脚本。

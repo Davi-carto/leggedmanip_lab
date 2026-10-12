@@ -76,11 +76,13 @@ def base_lin_vel(env: ManagerBasedEnv, asset_cfg: SceneEntityCfg = SceneEntityCf
 def end_effector_link0_relative_pose(
     env: ManagerBasedEnv,
     asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+    end_effector_name: str = "end_effector",
+    reference_body_name: str = "link0",
 ) -> torch.Tensor:
     asset: Articulation = env.scene[asset_cfg.name]
 
-    ee_ids, _ = asset.find_bodies("end_effector")
-    link0_ids, _ = asset.find_bodies("link0")
+    ee_ids, _ = asset.find_bodies(end_effector_name)
+    link0_ids, _ = asset.find_bodies(reference_body_name)
 
     if len(ee_ids) == 0 or len(link0_ids) == 0:
         return torch.zeros((env.num_envs, 7), device=env.device)
