@@ -43,6 +43,8 @@ Legged robots with manipulation arms present unique challenges — coordinating 
 | M20-PIPER | DeepRobotics M20 (wheeled-legged) | Agilex Piper | [Setup and parameter notes (中文)](docs/M20_PIPER_CN.md) |
 | ... | ... | ... | ... |
 
+M20-PIPER includes the official M20 and M20_Piper model snapshots in `deep_robotics_model/` (BSD-3-Clause; see [model provenance](deep_robotics_model/README.md)). No separate model download or submodule setup is required. The loader aligns the chassis joint conventions to M20 at runtime; see the [M20-Piper setup notes](docs/M20_PIPER_CN.md).
+
 Each platform supports the following **2** training modes:
 
 - **Flat** — Locomotion + manipulation on flat terrain

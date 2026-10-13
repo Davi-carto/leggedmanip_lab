@@ -10,15 +10,17 @@
 source ~/miniforge3/etc/profile.d/conda.sh
 conda activate rl-training
 cd ~/LeggedManip_Lab
-export DEEP_ROBOTICS_MODEL_DIR="$HOME/DeepRoboticsLab/deep_robotics_model"
+unset DEEP_ROBOTICS_MODEL_DIR
 python -m pip install -e source/LeggedManip_Lab --no-deps --no-build-isolation
 ```
 
 本机已完成项目的 editable 安装，后续无需重复安装。必须先 `conda activate`，以执行当前环境的动态库初始化钩子。
 
-模型读取路径是 `$DEEP_ROBOTICS_MODEL_DIR/M20_Piper/usd/M20_Piper.usd`。环境变量未设置时，默认查找本项目根目录下的 `deep_robotics_model`。其他机器可单独克隆官方模型仓库，并设置此变量；不需要安装 `rl_training` Python 包，也没有将大体积模型复制到本仓库。
+本项目已内置 `deep_robotics_model/M20` 和 `deep_robotics_model/M20_Piper` 的完整模型资源（USD、URDF、MJCF 及网格），普通 `git clone` 即可取得，不需要额外克隆模型仓库、初始化子模块或安装 `rl_training` Python 包。模型快照版本及原始许可证见 [`deep_robotics_model/README.md`](../deep_robotics_model/README.md)。
 
-同时读取 `$DEEP_ROBOTICS_MODEL_DIR/M20/usd/M20.usd`，以其 16 个底盘关节的轴、两侧局部旋转和角度限位为基准。修正发生在场景 USD 中，且先于多环境克隆；不覆盖官方文件，不改变底盘几何零位、质量、机械臂或夹爪。直接在其他程序中打开原始 `M20_Piper.usd` 不会包含此修正。
+环境变量未设置时，默认读取项目根目录下的 `deep_robotics_model/M20_Piper/usd/M20_Piper.usd`，并以 `deep_robotics_model/M20/usd/M20.usd` 为方向参考。上面的 `unset` 用来清除之前指向外部模型的设置。若确实需要其他模型副本，仍可设置 `DEEP_ROBOTICS_MODEL_DIR=/absolute/path/deep_robotics_model` 覆盖默认目录；该目录必须同时包含 M20 和 M20_Piper 的完整资源。
+
+加载时以 M20 的 16 个底盘关节的轴、两侧局部旋转和角度限位为基准修正 M20-Piper。修正发生在场景 USD 中，且先于多环境克隆；不覆盖内置或外部的官方文件，不改变底盘几何零位、质量、机械臂或夹爪。直接在其他程序中打开原始 `M20_Piper.usd` 不会包含此修正。
 
 训练配置使用本地地面材质和无纹理光源，不依赖远程 Nucleus 地面/天空素材。Isaac Sim 仍需能访问 GPU；沙箱内无法访问 CUDA 不表示宿主机没有 GPU。
 
@@ -89,7 +91,7 @@ python scripts/rsl_rl/play.py --task M20-PIPER-WBC-Play --headless --num_envs 4 
 
 ## 参数来源与假设
 
-参考 [官方模型仓库](https://github.com/DeepRoboticsLab/deep_robotics_model) 中 `M20_Piper/usd/M20_Piper.usd`、`M20_Piper/urdf/M20_Piper.urdf` 和 `M20/usd/M20.usd`；本机模型仓库快照为 `549eb9ac08ab0674ad388202f0a276a1b140833b`。加载 USD 后对齐底盘关节坐标系和限位，不修改外部模型仓库，也不重新转换 URDF。
+参考 [官方模型仓库](https://github.com/DeepRoboticsLab/deep_robotics_model) 中 `M20_Piper/usd/M20_Piper.usd`、`M20_Piper/urdf/M20_Piper.urdf` 和 `M20/usd/M20.usd`；项目内置模型固定为已验证的快照 `549eb9ac08ab0674ad388202f0a276a1b140833b`。加载 USD 后对齐底盘关节坐标系和限位，不修改原始模型文件，也不重新转换 URDF。
 
 底座电机、初始腿姿和动作尺度参考 [官方 RL Training](https://github.com/DeepRoboticsLab/rl_training) 中：
 
