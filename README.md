@@ -41,6 +41,7 @@ Legged robots with manipulation arms present unique challenges — coordinating 
 | GO2-ARX5 | Unitree Go2 | ARX-X5 | <img src="./docs/imgs/go2_arx5.png" alt="go2_arx5" width="75"> |
 | GO2-PIPER | Unitree Go2 | Agilex Piper | <img src="./docs/imgs/go2_piper.png" alt="go2_piper" width="75"> |
 | M20-PIPER | DeepRobotics M20 (wheeled-legged) | Agilex Piper | [Setup and parameter notes (中文)](docs/M20_PIPER_CN.md) |
+| X30-PIPER | DeepRobotics X30 (quadruped) | Agilex Piper | [Assembly and task notes (中文)](docs/X30_PIPER_CN.md) |
 | ... | ... | ... | ... |
 
 M20-PIPER includes the official M20 and M20_Piper model snapshots in `deep_robotics_model/` (BSD-3-Clause; see [model provenance](deep_robotics_model/README.md)). No separate model download or submodule setup is required. The loader aligns the chassis joint conventions to M20 at runtime; see the [M20-Piper setup notes](docs/M20_PIPER_CN.md).
